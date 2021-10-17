@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-white text-center mb-5 rounded shadow-lg py-5">
+  <div class="bg-white text-center mb-5 rounded shadow-lg py-5 m-4">
     <h3>Chart</h3>
-    <area-chart :data="{'2017-01-01 00:00:00 -0800': 2, '2017-01-01 00:01:00 -0800': 5}"></area-chart>
+    <area-chart :data="chartData"></area-chart>
   </div>
 </template>
 
@@ -25,6 +25,23 @@ import { extendMoment } from "moment-range";
         nientyDaysAgo: ''
       }
     },
+    methods: {
+      fethPreviousData() {
+        this.allDates.map((date) => {
+          this.fetchApi(date)
+        })
+      },
+      fetchApi(date) {
+        fetch(`${this.url}/reports/total?date=${date}&iso=${this.iso}`)
+        .then((res) => res.json())
+        .then((data) => this.extractData(data.data))
+      },
+      extractData(data) {
+        const { date, confirmed } = data
+        this.chartData[date] = confirmed
+      }
+
+    },
     mounted () {
       this.currentDate = Moment().subtract(1, "days").format("YYYY-MM-DD")
       this.nientyDaysAgo = Moment().subtract(90, "days").format("YYYY-MM-DD")
@@ -34,6 +51,9 @@ import { extendMoment } from "moment-range";
       const range = moment.range(this.nientyDaysAgo, this.currentDate);
       const days = Array.from(range.by("days"));
       days.map((d) => this.allDates.push(d.format("YYYY-MM-DD")));
+    },
+    updated () {
+      this.fethPreviousData()
     },
   }
 </script>
