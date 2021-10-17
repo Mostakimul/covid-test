@@ -9,56 +9,56 @@
 <script>
 import Moment from "moment";
 import { extendMoment } from "moment-range";
-  export default {
-    props: {
-      iso: {
-        type: String,
-      },
-      url: {
-        type: String
-      }
+export default {
+  props: {
+    iso: {
+      type: String,
     },
-    data() {
-      return {
-        allDates: [],
-        chartData: {},
-        currentDate: '',
-        nientyDaysAgo: ''
-      }
+    url: {
+      type: String
+    }
+  },
+  data() {
+    return {
+      allDates: [],
+      chartData: {},
+      currentDate: '',
+      nientyDaysAgo: ''
+    }
+  },
+  methods: {
+    fethPreviousData() {
+      this.allDates.map((date) => {
+        this.fetchApi(date)
+      })
     },
-    methods: {
-      fethPreviousData() {
-        this.allDates.map((date) => {
-          this.fetchApi(date)
-        })
-      },
-      fetchApi(date) {
-        fetch(`${this.url}/reports/total?date=${date}&iso=${this.iso}`)
+    fetchApi(date) {
+      fetch(`${this.url}/reports/total?date=${date}&iso=${this.iso}`)
         .then((res) => res.json())
         .then((data) => this.extractData(data.data))
-      },
-      extractData(data) {
-        const { date, confirmed } = data
-        this.chartData[date] = confirmed
-      }
+    },
+    extractData(data) {
+      const { date, confirmed } = data
+      this.chartData[date] = confirmed
+    }
 
-    },
-    mounted () {
-      this.currentDate = Moment().subtract(1, "days").format("YYYY-MM-DD")
-      this.nientyDaysAgo = Moment().subtract(90, "days").format("YYYY-MM-DD")
+  },
+  mounted() {
+    this.currentDate = Moment().subtract(1, "days").format("YYYY-MM-DD")
+    this.nientyDaysAgo = Moment().subtract(90, "days").format("YYYY-MM-DD")
 
-      // compute range
-      const moment = extendMoment(Moment);
-      const range = moment.range(this.nientyDaysAgo, this.currentDate);
-      const days = Array.from(range.by("days"));
-      days.map((d) => this.allDates.push(d.format("YYYY-MM-DD")));
-    },
-    updated () {
-      this.fethPreviousData()
-    },
-  }
+    // compute range of 90 days
+    const moment = extendMoment(Moment);
+    const range = moment.range(this.nientyDaysAgo, this.currentDate);
+    const days = Array.from(range.by("days"));
+    days.map((d) => this.allDates.push(d.format("YYYY-MM-DD")));
+  },
+  updated() {
+    // fetching previous 90days data
+    this.fethPreviousData()
+  },
+}
 </script>
 
 <style lang="scss" scoped>
-
 </style>

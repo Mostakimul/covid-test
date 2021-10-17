@@ -50,11 +50,13 @@ export default {
     }
   },
   async mounted() {
+    // fetching all countries
     const res = await fetch(`${this.baseURL}/regions`)
     const data = await res.json()
     this.allCountries = data.data
   },
   methods: {
+    // finding iso of selected country
     findISO() {
       let coountryDetails = this.allCountries.filter((country) => country.name == this.selectedCountry)
       // console.log(coountryDetails);
