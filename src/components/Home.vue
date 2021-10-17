@@ -25,15 +25,21 @@
       </div>
     </div>
   </div>
+
+  <div v-if="selectedCountryIso">
+    <Moving :iso="selectedCountryIso" :url="baseURL"></Moving>
+  </div>
 </template>
 
 <script>
 import SingleCountry from "./SingleCountry.vue"
 import Chart from "./Chart.vue"
+import Moving from "./Moving.vue"
 export default {
   components: {
     SingleCountry,
-    Chart
+    Chart,
+    Moving
   },
   data() {
     return {
