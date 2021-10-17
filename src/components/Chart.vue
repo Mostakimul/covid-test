@@ -1,6 +1,7 @@
 <template>
   <div class="bg-white text-center mb-5 rounded shadow-lg py-5 m-4">
     <h3>Chart</h3>
+    <p>Data from: ({{ currentDate }} - {{ nientyDaysAgo }})</p>
     <area-chart :data="chartData"></area-chart>
   </div>
 </template>
