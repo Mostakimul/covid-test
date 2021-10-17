@@ -1,13 +1,25 @@
 <template>
-  <div>
-    <h2>Hello Vue</h2>
-    <line-chart :data="{'2017-05-13': 2, '2017-05-14': 5}"></line-chart>
+  <div class="bg-gray-200">
+    <div class="px-4 sm:px-6 md:px-8 max-w-screen-lg xl:max-w-screen-xl mx-auto min-h-screen">
+      <header>
+      <TheHeader></TheHeader>
+    </header>
+    <main>
+      <Home></Home>
+    </main>
+    </div>
   </div>
 </template>
 
 <script>
+import Home from "./components/Home.vue";
+import TheHeader from "./components/TheHeader.vue";
 export default {
   name: 'App',
+  components: {
+    Home,
+    TheHeader
+  }
 }
 </script>
 
