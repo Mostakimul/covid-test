@@ -2,7 +2,10 @@
   <div class="grid grid-cols-4 gap-5">
     <div class="col-span-full md:col-span-3">
       <div class="bg-white text-center mb-5 rounded shadow-lg py-5">
-        <h3>All Statictics</h3>
+        <h3>All Statictics of: {{ selectedCountry }}</h3>
+        <div v-if="selectedCountryIso">
+          <SingleCountry :iso="selectedCountryIso"></SingleCountry>
+        </div>
       </div>
     </div>
     <div class="col-span-full md:col-span-1">
@@ -24,7 +27,11 @@
 </template>
 
 <script>
+import SingleCountry from "./SingleCountry.vue"
 export default {
+  components: {
+    SingleCountry,
+  },
   data() {
     return {
       baseURL: 'http://localhost:8080/api',
@@ -41,7 +48,7 @@ export default {
   methods: {
     findISO() {
       let coountryDetails = this.allCountries.filter((country) => country.name == this.selectedCountry)
-      console.log(coountryDetails);
+      // console.log(coountryDetails);
       coountryDetails.map((details) => {
         this.selectedCountryIso = details.iso;
       })
