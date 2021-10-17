@@ -5,6 +5,7 @@
         <h3>All Statictics of: {{ selectedCountry }}</h3>
         <div v-if="selectedCountryIso">
           <SingleCountry :iso="selectedCountryIso" :url="baseURL"></SingleCountry>
+          <Chart v-if="selectedCountryIso" :iso="selectedCountryIso" :url="baseURL"></Chart>
         </div>
       </div>
     </div>
@@ -28,9 +29,11 @@
 
 <script>
 import SingleCountry from "./SingleCountry.vue"
+import Chart from "./Chart.vue"
 export default {
   components: {
     SingleCountry,
+    Chart
   },
   data() {
     return {
