@@ -4,7 +4,7 @@
       <div class="bg-white text-center mb-5 rounded shadow-lg py-5">
         <h3>All Statictics of: {{ selectedCountry }}</h3>
         <div v-if="selectedCountryIso">
-          <SingleCountry :iso="selectedCountryIso"></SingleCountry>
+          <SingleCountry :iso="selectedCountryIso" :url="baseURL"></SingleCountry>
         </div>
       </div>
     </div>
