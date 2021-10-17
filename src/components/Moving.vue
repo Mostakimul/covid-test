@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-white text-center mb-5 rounded shadow-lg py-5 m-4">
     <h3 class="text-center">Moving Avarage: {{avarage}}</h3>
     <div class="flex justify-center items-center">
       <input v-model="firstDate" type="date"  class="m-3">
@@ -62,7 +62,3 @@ import { extendMoment } from "moment-range";
     },
   }
 </script>
-
-<style lang="scss" scoped>
-
-</style>
