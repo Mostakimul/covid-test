@@ -25,10 +25,16 @@
   export default {
     data() {
       return {
-        number: 10
+        baseURL: 'http://localhost:8080/api',
+        allCountries: [],
+        selectedCountry: ''
       }
     },
-
+    async mounted () {
+      const res = await fetch(`${this.baseURL}/regions`)
+      const data = await res.json()
+      console.log(data.data);
+    },
   }
 </script>
 
